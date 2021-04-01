@@ -9,7 +9,8 @@ import { SocketService } from '../../socket/socket.service';
 export class ItemsListComponent implements OnInit {
 
   constructor(private socket: SocketService) {
-    this.socket.get$('items.list');
+    this.socket.get$<number[]>('items.list')
+      .subscribe((list) => console.log('Got items list', list));
   }
 
   ngOnInit(): void {

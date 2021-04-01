@@ -1,3 +1,4 @@
 <div class="container">
+  {{(wip$ | async) ? 'Идёт парсинг данных' : 'Парсер отдыхает'}}
   <app-items-list></app-items-list>
 </div>

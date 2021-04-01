@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { find, first, map, tap } from 'rxjs/operators';
+import { filter, first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 interface IMessage {
@@ -19,6 +19,7 @@ export class SocketService {
     this.ws.subscribe();
   }
 
+  // tslint:disable-next-line:typedef
   send(event: string, data: any = {}) {
     this.ws.next({event, data});
   }
@@ -30,16 +31,16 @@ export class SocketService {
 
   on$<T>(event: string): Observable<T> {
     return this.ws.pipe(
-      find((val: any) => val.event === event),
+      filter((val: any) => val.event === event),
       map((val: IMessage) => val.data as T)
     );
   }
 
   one$<T>(event: string): Observable<T> {
     return this.ws.pipe(
-      tap((val: IMessage) => {
+      /*tap((val: IMessage) => {
         console.log('Tap from one', val);
-      }),
+      }),*/
       first((val: IMessage) => val.event === event),
       map((val: IMessage) => val.data as T)
     );
