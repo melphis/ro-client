@@ -1,4 +1,11 @@
 <div class="container">
-  {{(wip$ | async) ? 'Идёт парсинг данных' : 'Парсер отдыхает'}}
+  <div class="row">
+    <div class="col-4">
+      {{(wip$ | async) ? 'Идёт парсинг данных' : 'Парсер отдыхает'}}
+    </div>
+    <div class="col-8">
+      Страниц спаршено {{pageParsed$ | async}}
+    </div>
+  </div>
   <app-items-list></app-items-list>
 </div>

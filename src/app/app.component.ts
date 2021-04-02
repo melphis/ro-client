@@ -10,8 +10,10 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   title = 'parser';
   wip$: Observable<boolean>;
+  pageParsed$: Observable<number>;
 
   constructor(private socket: SocketService) {
-    this.wip$ = socket.on$<boolean>('crawler.wip');
+    this.wip$ = this.socket.on$<boolean>('crawler.wip');
+    this.pageParsed$ = this.socket.on$('crawler.pageParsed');
   }
 }
